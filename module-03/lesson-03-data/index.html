@@ -124,16 +124,16 @@
                 header: true,
                 complete: function(data) {
 
-                    processData(states, data);
+                processData(states, data);
 
                 }
-            });
+            })
 
         });
         
         function processData(states, data) {
 
-            console.log(states, data);
+           // console.log(states, data);
             for (var state in states.features) {
 
                 var props = states.features[state].properties;
@@ -147,35 +147,39 @@
                         var props = states.features[state].properties;
 
                         for(var d in data.data) {
-                           if(props.STATEFP == data.data[d].STATE_FIP) {
+                           if(props.STATEFP === data.data[d].STATE_FIP) 
+                           {
                               states.features[state].properties = data.data[d]; 
                               break;
                            }  
                         } // inner for loop is complete
 
-                    } // outer for loop is complete
-                    
-                   /* function drawMap(states){
-                        L.geoJson(states, {
-                            style: function(feature) {
-                                return {
-                                    color: '#331111',
-                                    weight: 1,
-                                    fillOpacity: 1,
-                                    fillColor: '#11e029'
-                                };
-                            }
-
-                        }).addTo(map);
-                        
-                    } */
-
+                    } // outer for loop is complete                    
+                                    
                 }
                 
             }
+            
+            drawMap(states);
+            
+        }
+                    
+            function drawMap(states){
+                L.geoJson(states, {
+                    style: function(feature) {
+                        return {
+                            color: '#331111',
+                            weight: 1,
+                            fillOpacity: 1,
+                            fillColor: '#11e029'
+                        };
+                    }
 
-        }        
+                }).addTo(map);
+                        
+            }
 
+       
         // function to update the map (once for the initial data view and then again to update the map per the user's request)
         
 
