@@ -107,10 +107,10 @@
                 complete: function(data) {
 
                     // data is accessible to us here
-                    console.log(data);
+                    //console.log(data);
 
                     // note that states is also accessible here!
-                    console.log(states);
+                    //console.log(states);
 
                 }
             }); // end of Papa.parse() 
@@ -141,14 +141,14 @@
 
                 for(var d in data.data) {
 
-                    console.log(props.STATEFP, data.data[d].STATE_FIP);
+                    //console.log(props.STATEFP, data.data[d].STATE_FIP);
                     
                     for (var state in states.features) {
 
                         var props = states.features[state].properties;
 
                         for(var d in data.data) {
-                           if(props.STATEFP === data.data[d].STATE_FIP) 
+                           if(props.STATEFP == data.data[d].STATE_FIP) 
                            {
                               states.features[state].properties = data.data[d]; 
                               break;
