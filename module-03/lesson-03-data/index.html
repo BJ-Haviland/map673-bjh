@@ -78,6 +78,7 @@
         tiles.addTo(map);
 
         // declare global variables
+        var dataLayer;
 
         // AJAX requests to load data files (a GeoJSON and a CSV file)
         $.getJSON("us-states.json", function(states) {
@@ -165,7 +166,7 @@
         }
                     
             function drawMap(states){
-                L.geoJson(states, {
+                dataLayer = L.geoJson(states, {
                     style: function(feature) {
                         return {
                             color: '#331111',
@@ -189,7 +190,7 @@
             var values = [];
             dataLayer.eachLayer(function(layer){
                 for (var i=2001; i <= 2013; i++){
-                    var value = layer.feature.properties[string(i)];
+                    var value = layer.feature.properties[String(i)];
                     values.push(Number(value));
                 }
             });
