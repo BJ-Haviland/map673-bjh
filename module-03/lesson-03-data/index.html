@@ -176,6 +176,7 @@
                     }
 
                 }).addTo(map);
+                getClassBreaks();
                         
             }
 
@@ -183,7 +184,23 @@
         // function to update the map (once for the initial data view and then again to update the map per the user's request)
         
 
-        // function gets the class breaks   
+        // function gets the class breaks
+        function getClassBreaks() {
+            var values = [];
+            dataLayer.eachLayer(function(layer){
+                for (var i=2001; i <= 2013; i++){
+                    var value = layer.feature.properties[string(i)];
+                    values.push(Number(value));
+                }
+            });
+            
+            var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
+            
+            console.log(breaks);
+            
+        }
+        
+        
 
         // function to get the color value
 
