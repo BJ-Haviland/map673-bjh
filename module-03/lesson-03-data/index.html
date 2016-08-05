@@ -189,7 +189,7 @@
             dataLayer.eachLayer(function(layer) {
                 
                 layer.setStyle({
-                    fillColor : 'yellow'
+                    fillColor : getColor(Number(layer.feature.properties['2001']), breaks)
                 });
             })
         }
@@ -212,6 +212,12 @@
         }        
 
         // function to get the color value
+        function getColor(d, breaks){
+            
+            console.log(d, breaks);
+            
+            return 'orange'
+        }
 
         // function to draw the legend
 
