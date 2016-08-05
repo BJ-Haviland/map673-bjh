@@ -169,7 +169,7 @@
                 dataLayer = L.geoJson(states, {
                     style: function(feature) {
                         return {
-                            color: '#331111',
+                            color: '#080808',
                             weight: 1,
                             fillOpacity: 1,
                             fillColor: '#11e029'
@@ -177,12 +177,22 @@
                     }
 
                 }).addTo(map);
-                getClassBreaks();
+                var breaks = getClassBreaks();
+                
+                updateMap(breaks)
                         
             }
 
        
         // function to update the map (once for the initial data view and then again to update the map per the user's request)
+        function updateMap(breaks){
+            dataLayer.eachLayer(function(layer) {
+                
+                layer.setStyle({
+                    fillColor : 'yellow'
+                });
+            })
+        }
         
 
         // function gets the class breaks
@@ -199,9 +209,7 @@
             
             console.log(breaks);
             
-        }
-        
-        
+        }        
 
         // function to get the color value
 
