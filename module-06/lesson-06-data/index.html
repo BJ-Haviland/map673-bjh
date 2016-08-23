@@ -21,6 +21,55 @@
     <div id="map"></div>
 
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script type="cartoCSS/HTML" id="shelter-styles">
+    
+        /** bubble visualization */
+
+        #sheltering_201608171200_100pct{
+          marker-fill-opacity: 0.8;
+          marker-line-color: #6B0FB2;
+          marker-line-width: 0.5;
+          marker-line-opacity: 0.7;
+          marker-placement: point;
+          marker-multi-policy: largest;
+          marker-type: ellipse;
+          marker-fill: #229A00;
+          marker-allow-overlap: true;
+          marker-clip: false;
+          marker-comp-op: src-over;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 1212] {
+           marker-width: 25.0;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 901] {
+           marker-width: 22.6;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 800] {
+           marker-width: 20.1;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 250] {
+           marker-width: 17.7;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 170] {
+           marker-width: 15.2;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 68] {
+           marker-width: 12.8;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 65] {
+           marker-width: 10.3;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 45] {
+           marker-width: 7.9;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 33] {
+           marker-width: 5.4;
+        }
+        #sheltering_201608171200_100pct [ total_popu <= 22] {
+           marker-width: 3.0;
+        }
+    </script>
+    
     <script>
         
         // instantiate our map
@@ -29,6 +78,7 @@
         zoom: 7
     });
 
+    /*
     var cartoCSS = '#sheltering_201608171200_100pct{'+
           'marker-fill-opacity: 0.7;'+
           'marker-line-color: #6B0FB2;'+
@@ -42,14 +92,40 @@
           'marker-clip: false;'+
           'marker-comp-op: src-over;'+
         '}';
+    */  
+    
+    var na_land_cartoCSS = '#na_land_clipped{'+
+    /** simple visualization */
+
+      'polygon-fill: #c3c4a0;'+
+      'polygon-opacity: 0.7;'+
+      'line-color: #FFF;'+
+      'line-width: 1.5;'+
+      'line-opacity: 1;'+
+    '}';
+        
+    var na_grat_cartoCSS = '#na_grat_clipped{'+
+        
+      'line-color: #41006D;'+
+      'line-width: 1;'+
+      'line-opacity: 0.7;'+
+    '}';
 
     var sourceObject = {
         user_name: 'bj-haviland',
         type: 'cartodb',
         sublayers: [
             {
+                sql: "SELECT * FROM na_land_clipped",
+                cartocss: na_land_cartoCSS
+            },
+            {
                 sql: "SELECT * FROM sheltering_201608171200_100pct",
-                cartocss: cartoCSS
+                cartocss: $("#shelter-styles").text()
+            },
+            {
+                sql: "SELECT * FROM na_grat_clipped",
+                cartocss: na_grat_cartoCSS
             }  
         ]
     }
